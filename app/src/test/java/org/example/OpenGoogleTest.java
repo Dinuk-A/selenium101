@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class OpenGoogleTest {
 
     // @Test === dont need to run a main method to test these
+    // we are using the 3rd way(SeleniumManager)
     // these methods cannot be static
     @Test
     public void OpenGoogleAsTest() {

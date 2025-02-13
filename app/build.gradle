@@ -16,19 +16,23 @@ repositories {
 }
 
 dependencies {
+
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // This dependency is used by the application.
-    implementation libs.guava
+    implementation libs.guava  
 
-    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
-    //implementation 'org.seleniumhq.selenium:selenium-devtools-v133:4.16.1'  
+    //custom added ones 👇🏼 
 
     //this will be only needed in the #2 method
+    //comment out if dont needed 
     implementation 'io.github.bonigarcia:webdrivermanager:5.6.0'
+
+    //now working one
+    implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
