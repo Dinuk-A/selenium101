@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class WebInteract {
 
     // #1
-    //@Test
+    // @Test
     public void typeText() {
 
         // call webdriver interface
@@ -27,7 +27,7 @@ public class WebInteract {
     }
 
     // #2
-    //@Test
+    @Test
     public void clickLinks() {
 
         // call webdriver interface
@@ -74,22 +74,32 @@ public class WebInteract {
         // go back again
         driver.navigate().back();
 
-        // #4 ✅ find duplications(same link text as #1)
-        dashboardLink.click();
+        // #4 ✅
+        // find duplications(same link text as #1)
+        // dashboardLink.click(); ❌
+        // this will give staleElementreferenceexception === because we navigated back
+        // from the previous page, dashboardLink reference is lost now.cant access with
+        // that name again,,,this happens if refreshes too
+
+        // so we need to capture that element again
+        // ✔
+        WebElement duplicatedLink = driver.findElement(By.linkText("Go to Dashboard"));
+        duplicatedLink.click();
+        // go back again
+        driver.navigate().back();
 
         // #5 ✅
         // find howmany link elements on this page
         List<WebElement> allLinks = driver.findElements(By.tagName("a"));
 
-       int linkCountDirectly = allLinks.size();
-       System.out.println("linkCountDirectly " + linkCountDirectly);
+        int linkCountDirectly = allLinks.size();
+        System.out.println("linkCountDirectly " + linkCountDirectly);
 
-       // #6 ✅
-       // howmany links on just the ayout
-
-       //first find the main class name's element
+        // #6 ✅
+        // howmany links on just the layout
+        // first find the main class name's element
         WebElement mainLayoutElement = driver.findElement(By.className("layout-main-content"));
-        List linksInMainLayout = mainLayoutElement.findElements(By.tagName("a"));
+        List<WebElement> linksInMainLayout = mainLayoutElement.findElements(By.tagName("a"));
         System.out.println("links count in main layout : " + linksInMainLayout.size());
 
     }
