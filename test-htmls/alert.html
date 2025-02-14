@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium XPath Practice - Alerts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Selenium XPath Practice - Alerts</h2>
+
+    <!-- Button with ID -->
+    <button id="alertBtn">Show Alert</button>
+
+    <!-- Button with Name -->
+    <button id="confirmBtn">Show Confirm</button>
+    <div id="confirmResult"></div>
+
+    <!-- Button with Class -->
+    <button id="promptBtn">Show Prompt</button>
+
+    <script>
+        document.getElementById("alertBtn").addEventListener("click", function () {
+            alert("This is an alert box!");
+        });
+
+        document.getElementById("confirmBtn").addEventListener("click", function () {
+           let userConfirm =  confirm("This is a confirm box. Click OK or Cancel.");
+           if (userConfirm) {
+            document.getElementById("confirmResult").innerText = "User clicked OK"
+           } else {
+            document.getElementById("confirmResult").innerText = "User clicked cancel"
+           }
+        });
+
+        document.getElementById("promptBtn").addEventListener("click", function () {
+            let userInput = prompt("This is a prompt box. Enter something:");
+            if (userInput !== null) {
+                alert("You entered: " + userInput);
+            }
+        });
+    </script>
+</body>
+</html>
