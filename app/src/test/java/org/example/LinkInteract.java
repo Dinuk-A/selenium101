@@ -56,7 +56,7 @@ public class LinkInteract {
         // #2 ✅
         // find the URL address without clicking
         WebElement destinationLink = driver.findElement(By.partialLinkText("Find the URL without clicki"));
-        String hrefValue = destinationLink.getAttribute("href");
+        String hrefValue = destinationLink.getDomAttribute("href");
         System.out.println(hrefValue);
 
         // #3 ✅
