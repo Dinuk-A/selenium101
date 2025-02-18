@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Window</title>
+    <style>
+        body {
+            background-color: #3a3838;
+            /* Dark charcoal */
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 20%;
+        }
+
+        .box {
+            width: 200px;
+            /* Set width */
+            height: 100px;
+            /* Set height */
+            border: 2px solid black;
+            /* Border */
+            text-align: center;
+            /* Center text */
+            line-height: 100px;
+            /* Align text vertically */
+            font-weight: bold;
+            /* Bold text */
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            /* Shadow effect */
+        }
+
+        .box:hover {
+            scale: 1.2;
+            transition: 0.5s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 100px; margin-bottom: 30px;">
+        <div class="box" style="background-color: rgb(14, 143, 185);" id="box1" onclick="updateBoxText('box 1')">
+            This is a box.
+        </div>
+
+        <div class="box" style="background-color: rgb(8, 197, 55);" id="box2" onclick="updateBoxText('box 2')">
+            This is box 2.
+        </div>
+    </div>
+
+    <p id="showClickedBoxName"> </p>
+    <br>
+    <a href="dragdrop.html"> to drag and drop</a>
+
+    <script>
+        const updateBoxText = (boxName) => {
+            document.getElementById('showClickedBoxName').innerText = `You clicked ${boxName}`;
+        }
+    </script>
+
+</body>
+
+</html>

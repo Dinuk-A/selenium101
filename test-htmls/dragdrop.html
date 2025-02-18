@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop Test</title>
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 5%;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #dragBox {
+            background-color: rgb(8, 197, 55);
+            cursor: grab;
+        }
+
+        #dropZone {
+            background-color: rgb(14, 143, 185);
+            border: 2px dashed white;
+        }
+
+        #dropZone.dragover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Drag & Drop Test</h2>
+    <p>Drag the green box and drop it inside the blue box.</p>
+
+    <div class="container">
+        <div class="box" id="dragBox" draggable="true">Drag me</div>
+        <div class="box" id="dropZone">Drop here</div>
+    </div>
+
+    <p id="status"></p>
+
+    <script>
+        const dragBox = document.getElementById("dragBox");
+        const dropZone = document.getElementById("dropZone");
+
+        dragBox.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text", "dragBox");
+        });
+
+        dropZone.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZone.classList.add("dragover");
+        });
+
+        dropZone.addEventListener("dragleave", () => {
+            dropZone.classList.remove("dragover");
+        });
+
+        dropZone.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropZone.classList.remove("dragover");
+
+            const data = e.dataTransfer.getData("text");
+            if (data === "dragBox") {
+                dropZone.innerText = "Dropped!";
+                document.getElementById("status").innerText = "You successfully dropped the box!";
+                dragBox.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
