@@ -8,14 +8,45 @@
     <style>
         body {
             background-color: #110707;
-            /* Dark charcoal */
             color: white;
             text-align: center;
             font-family: Arial, sans-serif;
-            padding-top: 20%;
+            padding-top: 5%;
         }
 
-       
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 300px;
+            height: 200px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: black;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 
@@ -29,6 +60,49 @@
     <a href="third-page.html">Third Page</a>
     <br>
     <a href="mouse-event.html">Mouse Page</a>
+    <br>
+
+    <div class="button-container">
+        <button id="openOnlyFirst" onclick="openWindow('first-page.html', 600, 400)">Open First Page</button>
+        <button id="openAll" onclick="openMultipleWindows()">Open 3 Tabs</button>
+        <button id="closeAll" onclick="closeAllWindows()">Close All W/O main</button>
+    </div>
+
+    <script>
+        let openWindows = []; // Store opened windows
+
+        function openWindow(url, width, height,top,left) {
+            let newWindow = window.open(url, "_blank", `width=${width},height=${height},top=${top},left=${left}`);
+            if (newWindow) {
+                openWindows.push(newWindow); // Keep track of opened windows
+            }
+        }
+
+        function openMultipleWindows() {
+
+            let positions = [
+                { top: 100, left: 100 },
+                { top: 150, left: 500 },
+                { top: 200, left: 900 }
+            ]
+
+            let urls = ["first-page.html","second-page.html","third-page.html"]
+            
+            for (let i = 0; i<urls.length; i++){
+                openWindow(urls[i],500,400,positions[i].top,positions[i].left);
+            }
+
+        }
+
+        function closeAllWindows() {
+            openWindows.forEach(win => {
+                if (win && !win.closed) {
+                    win.close();
+                }
+            });
+            openWindows = []; // Reset array
+        }
+    </script>
 </body>
 
 </html>
