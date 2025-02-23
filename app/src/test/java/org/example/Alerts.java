@@ -1,7 +1,5 @@
 package org.example;
 
-import java.nio.file.WatchEvent;
-
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
