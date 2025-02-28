@@ -11,6 +11,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class IFramesTest {
     WebDriver driver;
@@ -83,7 +85,7 @@ public class IFramesTest {
         nestedBtn.click();
         System.out.println("Text in nestedBtn: " + nestedBtn.getText());
 
-        // come back to main doc 
+        // come back to main doc
         // driver.switchTo().parentFrame();
         // driver.switchTo().parentFrame();
 
@@ -100,32 +102,54 @@ public class IFramesTest {
 
     }
 
-    //count how many iframes in total WRONG WAY ❌
-    //but cant count nested iframes
-    //only direct child ifs are counted
+    // count how many iframes in total WRONG WAY ❌
+    // but cant count nested iframes
+    // only direct child ifs are counted
     @Test
-    public void countIFSWrongWay(){
+    public void countIFSWrongWay() {
         List<WebElement> iFS = driver.findElements(By.tagName("iframe"));
         System.out.println(iFS.size());
     }
 
     // an attr of class
-    public int iFrsCount = 0;
+    public int iFrsCount ;
 
-    //count how many iframes in total CORRECT WAY ✅
+    // count how many iframes in total CORRECT WAY ✅
     @Test
-    public void countIFS(){
-     
-        List<WebElement> iFrs = driver.findElements(By.tagName("iframe"));
-        while (iFrs.size()>0) {
-            countIFS();
-            iFrsCount =iFrs.size();
-        }
-
+    public void countIFS() {
+        iFrsCount = 0; 
+        countAllIframes();
         System.out.println("Total iframe count: " + iFrsCount);
-
     }
 
+    //custom fn
+    private void countAllIframes() {
+        //get all iframes in main parent layer
+        List<WebElement> iFrs = driver.findElements(By.tagName("iframe"));
+
+        //add that count to our counter
+        iFrsCount += iFrs.size();
+
+        //loop all those main layer frames
+        for (WebElement iframe : iFrs) {
+
+            //try-catch is needed because if a nested iframe took time to load and selenium could miss that
+            try {
+
+                //switch to that first layer child frame
+                driver.switchTo().frame(iframe);
+
+                //recursive method> continue
+                countAllIframes();
+
+                //switch back a single level
+                driver.switchTo().parentFrame();
+
+            } catch (Exception e) {
+                System.out.println("Skipping iframe due to an error: " + e.getMessage());
+            }
+        }
+    }
 
     @AfterEach
     public void closeAll() {
