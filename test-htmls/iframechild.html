@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFrames Ex</title>
+</head>
+<body style="background-color: rgb(133, 33, 33); color: aliceblue;">
+    <h1>random text inside iframe</h1>
+    <iframe src="nested.html" frameborder="5" width="400" height="120"></iframe>
+    <button id="btnIFrame" onclick="changeText();">Click me</button>
+
+</body>
+
+<script>
+
+    let i = 0;
+
+    const changeText=()=>{
+        const btn = document.getElementById("btnIFrame");
+        i++;
+        btn.textContent = `Clicked nested ${i}`;
+    }
+    
+</script>
+
+
+</html>

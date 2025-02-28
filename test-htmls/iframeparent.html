@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iframe parent</title>
+    <style>
+        body {
+            display: block;
+            align-items: center;
+            justify-content: center;
+            background-color: #110707;
+            color: white;
+            gap: 10px;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>This is the Main Window</h1>
+    <br>
+    <a href="first-page.html">First Page</a>
+    <br>
+    <a href="second-page.html">Second Page</a>
+    <br>
+    <a href="third-page.html">Third Page</a>
+    <br>
+    <a href="mouse-event.html">Mouse Page</a>
+    <br>
+
+    <button id="parentBtn" onclick="changeText();" style="background-color: blue; color: azure; padding: 10px; margin: 10px;">Click In Parent</button>
+
+    <!-- iframe starts here -->
+    <iframe id="firstIFrameId" src="iframechild.html" frameborder="0" width="600" height="350" style="padding: 25px;" > </iframe>
+    <!-- iframe ends here -->
+
+    <div class="button-container">
+        <button id="openOnlyFirst" >Open First Page</button>
+        <button id="openAll" >Open 3 Tabs</button>
+        <button id="closeAll" >Close All W/O main</button>
+    </div>
+</body>
+
+<script>
+    
+    let i = 0;
+
+    const changeText=()=>{
+        const btn = document.getElementById("parentBtn");
+        i++;
+        btn.textContent = `Clicked Parent ${i}`;
+    }
+    
+</script>
+
+</html>
