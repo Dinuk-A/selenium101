@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILES</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #previewContainer {
+            margin-top: 20px;
+        }
+
+        #preview {
+            max-width: 300px;
+            max-height: 300px;
+            display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ccc;
+            border: none;
+        }
+    </style>
+</head>
+
+<body style="background-color: black; color: aliceblue;">
+    <p>files ex</p>
+    <form action="">
+
+        <label for="fileUpldInput">Click below to upload files</label>
+        <button type="button" id="fileUpldInputBtn" onclick="trgrInput()">Click</button>
+        <input type="file" id="fileUpldInput" accept=".jpeg, .jpg, .txt, .pdf" style="display: none;">
+        <br>
+
+        <div id="previewContainer">
+            <img width="300px" height="300px" alt="Image Preview" id="prvImg">
+
+            <br>
+            <br>
+
+            <iframe frameborder="0" id="prvPdf">
+
+            </iframe>
+        </div>
+
+        <br>
+
+        <button id="btnDownload" style="display: none;" onclick="downloadSameFile()">Download</button>
+
+    </form>
+</body>
+
+<script>
+
+    let fileURL = "";
+
+    let fileUpldInput = document.getElementById("fileUpldInput");
+    let prvImg = document.getElementById("prvImg");
+    let prvPdf = document.getElementById("prvPdf");
+    let btnDownload = document.getElementById("btnDownload");
+
+
+
+    fileUpldInput.addEventListener("change", (e) => {
+        const uploadedFile = e.target.files[0];
+        fileURL = URL.createObjectURL(uploadedFile);
+
+        const fileType = uploadedFile.type;
+
+        console.log(fileType);
+
+        console.log(fileURL);
+
+        if (fileType == "image/jpeg") {
+            prvImg.src = fileURL;
+        } else if (fileType == "application/pdf") {
+            prvPdf.src = fileURL;
+        }
+
+        btnDownload.style.display = "block";
+
+    });
+
+    //create the downloadable file(same uploaded document, but with a new name)
+    const downloadSameFile = () => {
+        const link = document.createElement("a");
+        link.href = fileURL;
+        link.download = "sameFile";
+        link.click();
+
+        //to avoid memory leaks.
+        URL.revokeObjectURL(uploadedFile);
+    }
+
+    const trgrInput =()=>{
+        fileUpldInput.click();
+    }
+
+</script>
+
+</html>
